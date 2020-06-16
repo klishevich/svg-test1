@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<div id="svgRoot"></div>
+		<script type="text/javascript">
+		const DIAMETER = 200;
+		const SVG_SIZE = DIAMETER + 12;
+		const STROKE = "black";
+		const STROKE_WIDTH = "2";
+
+		const getSectorPath = (x, y, outerDiameter, a1, a2) => {
+		    const degtorad = Math.PI / 180;
+		    const cr = outerDiameter / 2;
+		    const cx1 = Math.cos(degtorad * a2) * cr + x;
+		    const cy1 = -Math.sin(degtorad * a2) * cr + y;
+		    const cx2 = Math.cos(degtorad * a1) * cr + x;
+		    const cy2 = -Math.sin(degtorad * a1) * cr + y;
+
+		    return `M${x} ${y} ${cx1} ${cy1} A${cr} ${cr} 0 0 1 ${cx2} ${cy2}Z`;
+		};
+
+		const getDonutSectorPath = (x, y, outerDiameter, innerDiameter, a1, a2) => {
+		    const degtorad = Math.PI / 180;
+
+		    const outerR = outerDiameter / 2;
+		    const outerX1 = Math.cos(degtorad * a2) * outerR + x;
+		    const outerY1 = -Math.sin(degtorad * a2) * outerR + y;
+		    const outerX2 = Math.cos(degtorad * a1) * outerR + x;
+		    const outerY2 = -Math.sin(degtorad * a1) * outerR + y;
+
+		    const innerR = innerDiameter / 2;
+		    const innerX1 = Math.cos(degtorad * a2) * innerR + x;
+		    const innerY1 = -Math.sin(degtorad * a2) * innerR + y;
+		    const innerX2 = Math.cos(degtorad * a1) * innerR + x;
+		    const innerY2 = -Math.sin(degtorad * a1) * innerR + y;
+
+		    return `M${outerX1} ${outerY1} A${outerR} ${outerR} 0 0 1 ${outerX2} ${outerY2} L${innerX2} ${innerY2} A${innerR} ${innerR} 0 0 0 ${innerX1} ${innerY1}Z`;
+		};
+
+		const svgRoot = document.getElementById("svgRoot");
+		const pieChartSvgString = `<svg width="${SVG_SIZE}" height="${SVG_SIZE}">
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getSectorPath(SVG_SIZE / 2, SVG_SIZE / 2 - 5, DIAMETER, 45, 135)}"
+                        fill="#ff0000"
+                    />
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getSectorPath(SVG_SIZE / 2, SVG_SIZE / 2, DIAMETER, 135, 225)}"
+                        fill="#00ff00"
+                    />
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getSectorPath(SVG_SIZE / 2, SVG_SIZE / 2, DIAMETER, 225, 315)}"
+                        fill="#0000ff"
+                    />
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getSectorPath(SVG_SIZE / 2, SVG_SIZE / 2, DIAMETER, 315, 45)}"
+                        fill="#ffff00"
+                    />
+                </svg>`;
+        const svgNode = document.createRange().createContextualFragment(pieChartSvgString);
+        svgRoot.appendChild(svgNode);
+
+        const donutChartSvgString = `<svg width="${SVG_SIZE}" height="${SVG_SIZE}">
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getDonutSectorPath(SVG_SIZE / 2, SVG_SIZE / 2 - 5, DIAMETER, DIAMETER / 2, 45, 135)}"
+                        fill="#ff0000"
+                    />
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getDonutSectorPath(SVG_SIZE / 2, SVG_SIZE / 2, DIAMETER, DIAMETER / 2, 135, 225)}"
+                        fill="#00ff00"
+                    />
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getDonutSectorPath(SVG_SIZE / 2, SVG_SIZE / 2, DIAMETER, DIAMETER / 2, 225, 315)}"
+                        fill="#0000ff"
+                    />
+                    <path
+                        stroke="${STROKE}"
+                        strokeWidth="${STROKE_WIDTH}"
+                        d="${getDonutSectorPath(SVG_SIZE / 2, SVG_SIZE / 2, DIAMETER, DIAMETER / 2, 315, 45)}"
+                        fill="#ffff00"
+                    />
+                </svg>`;
+        const svgNode2 = document.createRange().createContextualFragment(donutChartSvgString);
+        svgRoot.appendChild(svgNode2);
+	</script>
+	</body>
+</html>
