@@ -39,12 +39,19 @@
 
 		const svgRoot = document.getElementById("svgRoot");
 		const pieChartSvgString = `<svg width="${SVG_SIZE}" height="${SVG_SIZE}">
-                    <path
-                        stroke="${STROKE}"
-                        strokeWidth="${STROKE_WIDTH}"
-                        d="${getSectorPath(SVG_SIZE / 2, SVG_SIZE / 2 - 5, DIAMETER, 45, 135)}"
-                        fill="#ff0000"
-                    />
+					<defs>
+					    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+					      <stop offset="0%" style="stop-color:#DD5E89;stop-opacity:1" />
+					      <stop offset="100%" style="stop-color:#F7BB97;stop-opacity:1" />
+					    </linearGradient>
+					</defs>
+					<g fill="url(#gradient1)">
+	                    <path
+	                        stroke="${STROKE}"
+	                        strokeWidth="${STROKE_WIDTH}"
+	                        d="${getSectorPath(SVG_SIZE / 2, SVG_SIZE / 2 - 5, DIAMETER, 45, 135)}"
+	                    />
+	                </g>
                     <path
                         stroke="${STROKE}"
                         strokeWidth="${STROKE_WIDTH}"
