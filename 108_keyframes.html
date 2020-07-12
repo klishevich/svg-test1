@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="">
+<head>
+<style>
+
+</style>
+<title>Keyframes</title>
+</head>
+<body>
+<div id="rootChartDiv" style="width:75%;">
+<!--     <div class="chartjs-size-monitor">
+        <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+        </div>
+        <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+        </div>
+    </div> -->
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #c3c3c3;">
+</div>
+<script type="text/javascript">
+	const canvas = document.getElementById("myCanvas");
+	const ctx = canvas.getContext("2d");
+	ctx.fillStyle = "#FF0000";
+	ctx.fillRect(0,0,150,75);
+
+	const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+	        console.log(333, entry);
+	        if(entry.contentBoxSize) {
+	            console.log(334, entry.contentBoxSize);
+	        } else {
+	            console.log(335, entry.contentRect);
+	        }
+	    }
+    	console.log('Size changed');
+	});
+    const divElem = document.getElementById("rootChartDiv");
+    resizeObserver.observe(divElem);
+</script>
+</body>
+</html>
